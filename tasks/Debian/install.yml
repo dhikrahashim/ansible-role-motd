@@ -1,0 +1,39 @@
+---
+# Defines tasks for Debian/Ubuntu installation
+
+- name: Install packages
+  apt: >
+    name="{{ item }}"
+    update_cache=yes
+    cache_valid_time=86400
+    state=latest
+  with_items: "{{ motd_packages }}"
+  tags:
+    - motd
+
+- name: Ensure MOTD configuration directory
+  file: >
+    path="{{ motd_config_path }}"
+    state=directory
+    mode=0755 owner=root group=root
+  tags:
+    - motd
+    - common
+
+- name: Disable default MOTD help text
+  file: >
+    path="{{ motd_config_path }}/10-help-text"
+    state=absent
+  tags:
+    - motd
+    - common
+
+- name: Write configuration element templates
+  template: >
+    src="{{ item }}.j2"
+    dest="{{ motd_config_path }}{{ item }}"
+    mode=0644 owner=root group=root
+  with_items: "{{ motd_config_files }}"
+  tags:
+    - motd
+    - common

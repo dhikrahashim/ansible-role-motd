@@ -1,0 +1,28 @@
+---
+# Defines tasks to configure the MOTD
+
+- name: Gather OS specific varibles
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+  tags:
+    - motd
+    - common
+
+- include: "{{ ansible_os_family }}/install.yml"
+  static: no
+  tags:
+    - motd
+    - common
+
+- name: Write configuration templates
+  template: >
+    src="ascii/{{ motd_template|ternary(motd_template, 'empty') }}.j2"
+    dest="{{ motd_file }}"
+    mode=0644 owner=root group=root
+  when: motd_message is not none
+  tags:
+    - motd
+    - common

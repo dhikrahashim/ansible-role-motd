@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# motd.tail is reserved for the admin to append static
+# trailing information to a dynamically generated
+# /etc/motd.
+
+[ -f /etc/motd.tail ] && cat /etc/motd.tail || true

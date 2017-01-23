@@ -1,0 +1,7 @@
+---
+# Defines variables for RedHat/CentOS
+
+motd_file: "/etc/motd"
+motd_config_path: ""
+motd_config_files: []
+motd_packages: []

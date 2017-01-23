@@ -1,0 +1,12 @@
+---
+# Defines variables for Debian/Ubuntu
+
+motd_file: "/etc/motd"
+motd_config_path: "/etc/update-motd.d/"
+motd_config_files:
+  - "00-ansible"
+  - "00-header"
+  - "10-system-info"
+  - "99-footer"
+motd_packages:
+  - "lsb-release"

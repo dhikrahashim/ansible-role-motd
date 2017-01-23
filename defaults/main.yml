@@ -1,0 +1,6 @@
+---
+# The variables file used for MOTD playbooks.
+# If not overriden in inventory or as a parameter, this is the value that will be used
+
+motd_message: ""
+motd_template: "empty"
